@@ -2,6 +2,7 @@
 
 import base64
 import time
+from copy import deepcopy
 from pathlib import Path
 
 from .browser import Browser, StalePage
@@ -45,7 +46,7 @@ class Agent:
 
     def snapshot(self):
         return {
-            **{k: v for k, v in self.state.items() if k != "browser"},
+            **deepcopy({k: v for k, v in self.state.items() if k != "browser"}),
             "elements": action_space(self.state["page"]["actions"])[0],
         }
 
